@@ -1,0 +1,33 @@
+{
+  "name": "fidem",
+  "version": "0.0.1",
+  "description": "Node module to access Fidem API.",
+  "keywords": [
+    "fidem"
+  ],
+  "author": "Sébastien Guimont <info@sebastienguimont.com> (http://sebastienguimont.com/)",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/sguimont/fidem.git"
+  },
+  "bugs": {
+    "email": "info@sebastienguimont.com",
+    "url": "https://github.com/sguimont/fidem/issues"
+  },
+  "scripts": {
+    "test": "mocha --recursive"
+  },
+  "dependencies": {
+    "lodash": "^2.4.1",
+    "bluebird": "^2.3.2",
+    "lru-cache": "^2.5.0"
+  },
+  "devDependencies": {
+    "chai": "^1.9.1",
+    "mocha": "^1.20.1",
+    "sinon": "^1.10.2",
+    "sinon-chai": "^2.5.0"
+  },
+  "licence": "MIT"
+}
