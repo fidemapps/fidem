@@ -7,3 +7,14 @@
 * Test api call with session token (high and low level)
 * Documentation
 * Procedure to register this node module in npm repository
+
+# Endpoints
+
+Url: http://services.fidemapps.com
+Access Key: DEMO-ACCESSKEY 
+Secret KEy: DEMO-SECRETKEY
+
+# Demo user credentials to get session token
+
+user:  demo@fidemapps.com
+password: demo
