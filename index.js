@@ -2,9 +2,15 @@
  * Expose module.
  */
 
+var Client = require('./lib/client');
+
 /**
- * TODO: I don't know what is the better way to expose the two kinds of service.  I think they can share the same options.
+ * Create a new client.
+ *
+ * @see Client
+ * @returns {Client}
  */
 
-module.exports.services = require('./lib/services');
-module.exports.tokenServices = require('./lib/services-token');
+exports.createClient = function (config) {
+  return new Client(config);
+};
