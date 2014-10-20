@@ -1,6 +1,8 @@
 var expect = require('chai').use(require('chai-as-promised')).expect;
 var fidem = require('./');
 
+var idRegexp = /^[\-_a-zA-Z0-9]{9,15}$/;
+
 describe('Client', function () {
   describe('create a new client', function () {
     it('should throw error if a property is missing', function () {
@@ -45,7 +47,7 @@ describe('Client', function () {
         expect(client.authenticate({
           username: 'demo@fidemapps.com',
           password: 'demo'
-        })).to.eventually.match(/^[\-_a-zA-Z0-9]{9}$/).notify(done);
+        })).to.eventually.match(idRegexp).notify(done);
       });
 
       it('should support node callback', function (done) {
@@ -54,7 +56,7 @@ describe('Client', function () {
           password: 'demo'
         }, function (err, token) {
           if (err) return done(err);
-          expect(token).to.match(/^[\-_a-zA-Z0-9]{9}$/);
+          expect(token).to.match(idRegexp);
           done();
         });
       });
@@ -180,7 +182,7 @@ describe('Client', function () {
       it('create a new member', function (done) {
         client.createMember('demo', function (err, res) {
           if (err) return done(err);
-          expect(res.id).to.match(/^[\-_a-zA-Z0-9]{9}$/);
+          expect(res.id).to.match(idRegexp);
           done();
         });
       });
@@ -190,7 +192,7 @@ describe('Client', function () {
       it('should start a new session', function (done) {
         client.startSession(null, function (err, res) {
           if (err) return done(err);
-          expect(res.id).to.match(/^[\-_a-zA-Z0-9]{9}$/);
+          expect(res.id).to.match(idRegexp);
           done();
         });
       });
