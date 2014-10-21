@@ -178,7 +178,9 @@ Start a new session.
 client.startSession('02Ldkzqkdu');
 ```
 
-### Assign a member to an existing session.
+### client.assignMemberToSession(memberId, sessionId, [cb])
+
+Assign a member to an existing session.
 
 ```
 * @param {string} sessionId If of the session.
