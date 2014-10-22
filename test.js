@@ -5,18 +5,6 @@ var idRegexp = /^[\-_a-zA-Z0-9]{9,15}$/;
 
 describe('Client', function () {
   describe('create a new client', function () {
-    it('should throw error if a property is missing', function () {
-      expect(function createWithNothing() {
-        fidem.createClient();
-      }).to.throw('API key not provided.');
-
-      expect(function createWithoutSecret() {
-        fidem.createClient({
-          key: 'xx'
-        });
-      }).to.throw('API secret not provided.');
-    });
-
     it('should extend config correctly', function () {
       var client = fidem.createClient({
         secret: 'a',
@@ -64,6 +52,27 @@ describe('Client', function () {
 
     describe('#request', function () {
       describe('with a signed request', function () {
+        it('should return an error if the key or secret is missing', function () {
+          client = fidem.createClient();
+          expect(client.request({
+            path: '/api/gamification/actions',
+          })).to.be.rejectedWith(Error, 'Signed query required key/secret.');
+
+          client = fidem.createClient({
+            key: 'xx'
+          });
+          expect(client.request({
+            path: '/api/gamification/actions',
+          })).to.be.rejectedWith(Error, 'Signed query required key/secret.');
+
+          client = fidem.createClient({
+            secret: 'xx'
+          });
+          expect(client.request({
+            path: '/api/gamification/actions',
+          })).to.be.rejectedWith(Error, 'Signed query required key/secret.');
+        });
+
         it('should not return an error', function (done) {
           expect(client.request({
             method: 'POST',
