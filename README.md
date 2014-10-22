@@ -29,7 +29,7 @@ client.logAction({
     name: 'The Big Show'
   }
 }).then(function (result) {
-  console.log(result.status); // 200
+  // ...
 })
 
 // Authenticate a user.
