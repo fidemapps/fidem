@@ -49,19 +49,13 @@ describe('Client', function () {
 
     describe('#authenticate', function () {
       it('should return a token', function (done) {
-        expect(client.authenticate({
-          username: 'demo@fidemapps.com',
-          password: 'demo'
-        })).to.eventually.match(idRegexp).notify(done);
-      });
-
-      it('should support node callback', function (done) {
         client.authenticate({
           username: 'demo@fidemapps.com',
           password: 'demo'
-        }, function (err, token) {
+        }, function (err, res) {
           if (err) return done(err);
-          expect(token).to.match(idRegexp);
+          expect(res.token).to.match(idRegexp);
+          expect(res.user).to.exist;
           done();
         });
       });
@@ -131,9 +125,9 @@ describe('Client', function () {
           client.authenticate({
             username: 'demo@fidemapps.com',
             password: 'demo'
-          }, function (err, _token) {
+          }, function (err, res) {
             if (err) return done();
-            token = _token;
+            token = res.token;
             done();
           });
         });
@@ -161,9 +155,9 @@ describe('Client', function () {
           client.authenticate({
             username: 'demo@fidemapps.com',
             password: 'demo'
-          }, function (err, _token) {
+          }, function (err, res) {
             if (err) return done();
-            token = _token;
+            token = res.token;
             done();
           });
         });
@@ -204,9 +198,9 @@ describe('Client', function () {
         client.authenticate({
           username: 'demo@fidemapps.com',
           password: 'demo'
-        }, function (err, _token) {
+        }, function (err, res) {
           if (err) return done();
-          token = _token;
+          token = res.token;
           done();
         });
       });
