@@ -55,7 +55,8 @@ Create a new API client.
 * @param {string} config.key API key.
 * @param {string} config.secret API secret.
 * @param {string} [config.hostname="services.fidemapps.com"] Hostname.
-* @param {string} [config.port=80] Port.
+* @param {string} [config.protocol=http] Protocol (http or https).
+* @param {string} [config.port=80|443] Port.
 * @returns {Client}
 ```
 
