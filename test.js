@@ -14,8 +14,25 @@ describe('Client', function () {
       expect(client.config).to.eql({
         hostname: 'services.fidemapps.com',
         port: 80,
+        protocol: 'http',
         secret: 'a',
-        key: 'b'
+        key: 'b',
+      });
+    });
+
+    it('should use 443 if protocol is https', function () {
+      var client = fidem.createClient({
+        secret: 'a',
+        key: 'b',
+        protocol: 'https'
+      });
+
+      expect(client.config).to.eql({
+        hostname: 'services.fidemapps.com',
+        port: 443,
+        protocol: 'https',
+        secret: 'a',
+        key: 'b',
       });
     });
   });
