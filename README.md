@@ -96,6 +96,7 @@ Make a custom request to the API.
 * @param {string} [options.method=GET] HTTP method.
 * @param {object} [options.body=null] HTTP body of the request for methods
    that supports it (POST, PUT, ...).
+* @param {object} [options.headers={}] Additional headers.
 * @param {object} [options.requestOptions={}] Custom options of the internal
    [request](https://github.com/mikeal/request#requestoptions-callback).
 * @param {Function} [cb] Optional callback.

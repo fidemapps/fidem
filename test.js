@@ -106,6 +106,36 @@ describe('Client', function () {
         });
       });
 
+      describe('additional headers', function () {
+        var token;
+
+        beforeEach(function (done) {
+          // Authenticate to get a valid token.
+          client.authenticate({
+            username: 'demo@fidemapps.com',
+            password: 'demo'
+          }, function (err, _token) {
+            if (err) return done();
+            token = _token;
+            done();
+          });
+        });
+
+        it('should be supported', function (done) {
+          client.request({
+            headers: {
+              'X-Fidem-SessionToken': token
+            },
+            sign: false,
+            path: '/internal/accounts'
+          }, function (err, res) {
+            if (err) return done(err);
+            expect(res[0].id).to.equal('demo');
+            done();
+          });
+        });
+      });
+
       describe('with a token based request', function () {
         var token;
 
