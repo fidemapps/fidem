@@ -116,11 +116,10 @@ describe('Client', function () {
           client.request({
             token: token,
             sign: false,
-            path: '/internal/security/user/' + token
-          }, function (err, user) {
+            path: '/internal/accounts'
+          }, function (err, res) {
             if (err) return done(err);
-            expect(user).to.have.property('username', 'demo');
-            expect(user).to.have.property('email', 'demo@fidemapps.com');
+            expect(res[0].id).to.equal('demo');
             done();
           });
         });
