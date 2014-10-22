@@ -80,7 +80,10 @@ Get an authentication token for the credentials provided.
 ```
 
 ```js
-client.authenticate(credentials);
+client.authenticate(credentials).then(function (res) {
+  console.log(res.token); // xxx
+  console.log(res.user); // {..}
+});
 ```
 
 ### client.request(options, [cb])
