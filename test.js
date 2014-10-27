@@ -141,7 +141,7 @@ describe('Client', function () {
             path: '/internal/accounts'
           }, function (err, res) {
             if (err) return done(err);
-            expect(res[0].id).to.equal('demo');
+            expect(res[0].id).to.equal('fidem');
             done();
           });
         });
@@ -169,7 +169,7 @@ describe('Client', function () {
             path: '/internal/accounts'
           }, function (err, res) {
             if (err) return done(err);
-            expect(res[0].id).to.equal('demo');
+            expect(res[0].id).to.equal('fidem');
             done();
           });
         });
@@ -229,7 +229,7 @@ describe('Client', function () {
 
     describe('#createMember', function () {
       it('create a new member', function (done) {
-        client.createMember('demo', function (err, res) {
+        client.createMember({account_id: 'demo'}, function (err, res) {
           if (err) return done(err);
           expect(res.id).to.match(idRegexp);
           done();
@@ -259,7 +259,7 @@ describe('Client', function () {
       });
 
       beforeEach(function (done) {
-        client.createMember('demo', function (err, res) {
+        client.createMember({account_id: 'demo'}, function (err, res) {
           if (err) return done(err);
           memberId = res.id;
           done();
