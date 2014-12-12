@@ -1,7 +1,9 @@
 var expect = require('chai').use(require('chai-as-promised')).expect;
 var fidem = require('./');
 
-var idRegexp = /^[\-_a-zA-Z0-9]{9,15}$/;
+var idRegexp = /^[\-_a-zA-Z0-9]{8,15}$/;
+
+var testAccount = {hostname:'dev-services.fidemapps.com',username:'demo-admin', email:'admin@demo.com', password: 'admin'}
 
 describe('Client', function () {
   describe('create a new client', function () {
@@ -12,11 +14,11 @@ describe('Client', function () {
       });
 
       expect(client.config).to.eql({
-        hostname: 'services.fidemapps.com',
+        hostname:testAccount.hostname ,
         port: 80,
         protocol: 'http',
         secret: 'a',
-        key: 'b',
+        key: 'b'
       });
     });
 
@@ -28,11 +30,11 @@ describe('Client', function () {
       });
 
       expect(client.config).to.eql({
-        hostname: 'services.fidemapps.com',
+        hostname: testAccount.hostname ,
         port: 443,
         protocol: 'https',
         secret: 'a',
-        key: 'b',
+        key: 'b'
       });
     });
   });
@@ -50,10 +52,11 @@ describe('Client', function () {
     describe('#authenticate', function () {
       it('should return a token', function (done) {
         client.authenticate({
-          username: 'demo@fidemapps.com',
-          password: 'demo'
+          username: testAccount.email,
+          password: testAccount.password
         }, function (err, res) {
           if (err) return done(err);
+          console.log("Token", res.token)
           expect(res.token).to.match(idRegexp);
           expect(res.user).to.exist;
           done();
@@ -80,7 +83,7 @@ describe('Client', function () {
             secret: 'xx'
           });
           expect(client.request({
-            path: '/api/gamification/actions',
+            path: '/api/gamification/actions'
           })).to.be.rejectedWith(Error, 'Signed query required key/secret.');
         });
 
@@ -123,8 +126,8 @@ describe('Client', function () {
         beforeEach(function (done) {
           // Authenticate to get a valid token.
           client.authenticate({
-            username: 'demo@fidemapps.com',
-            password: 'demo'
+            username: testAccount.email,
+            password: testAccount.password
           }, function (err, res) {
             if (err) return done();
             token = res.token;
@@ -147,14 +150,55 @@ describe('Client', function () {
         });
       });
 
+      describe('additional query string', function () {
+        var token;
+
+        beforeEach(function (done) {
+          // Authenticate to get a valid token.
+          client.authenticate({
+            username: testAccount.email,
+            password: testAccount.password
+          }, function (err, res) {
+            if (err) return done();
+            token = res.token;
+            done();
+          });
+        });
+        it('should be supported', function (done) {
+          client.request({
+            token: token,
+            sign: false,
+            path: '/internal/members',
+            qs:{page:1, limit:1}
+          }, function (err, res) {
+            if (err) return done(err);
+            expect(res.members.length).to.equal(1);
+
+            done();
+          });
+        });
+        it('should be interpreted', function (done) {
+          client.request({
+            token: token,
+            sign: false,
+            path: '/internal/members',
+            qs:{page:1, limit:2}
+          }, function (err, res) {
+            if (err) return done(err);
+            expect(res.members.length).to.equal(2);
+            done();
+          });
+        });
+      });
+
       describe('with a token based request', function () {
         var token;
 
         beforeEach(function (done) {
           // Authenticate to get a valid token.
           client.authenticate({
-            username: 'demo@fidemapps.com',
-            password: 'demo'
+            username: testAccount.email,
+            password: testAccount.password
           }, function (err, res) {
             if (err) return done();
             token = res.token;
@@ -196,8 +240,8 @@ describe('Client', function () {
       beforeEach(function (done) {
         // Authenticate to get a valid token.
         client.authenticate({
-          username: 'demo@fidemapps.com',
-          password: 'demo'
+          username: testAccount.email,
+          password: testAccount.password
         }, function (err, res) {
           if (err) return done();
           token = res.token;
@@ -208,8 +252,8 @@ describe('Client', function () {
       it('should return the user', function (done) {
         client.getUserByToken(token, function (err, user) {
           if (err) return done(err);
-          expect(user).to.have.property('username', 'demo');
-          expect(user).to.have.property('email', 'demo@fidemapps.com');
+          expect(user).to.have.property('username', testAccount.username);
+          expect(user).to.have.property('email', testAccount.email);
           done();
         });
       });
