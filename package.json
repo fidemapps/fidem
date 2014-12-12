@@ -9,11 +9,11 @@
   "main": "index.js",
   "repository": {
     "type": "git",
-    "url": "git://github.com/sguimont/fidem.git"
+    "url": "git://github.com/fidemapps/fidem.git"
   },
   "bugs": {
     "email": "info@sebastienguimont.com",
-    "url": "https://github.com/sguimont/fidem/issues"
+    "url": "https://github.com/fidemapps/fidem/issues"
   },
   "scripts": {
     "test": "mocha"
@@ -23,7 +23,7 @@
     "lodash": "^2.4.1",
     "lru-cache": "^2.5.0",
     "request": "^2.45.0",
-    "fidem-signer": "git://github.com/sguimont/fidem-signer.git"
+    "fidem-signer": "^0.1.1"
   },
   "devDependencies": {
     "chai": "^1.9.2",
