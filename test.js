@@ -49,8 +49,7 @@ describe('Client', function () {
 
     beforeEach(function () {
       client = fidem.createClient({
-        hostname: 'localhost',
-        port: 3001,
+        hostname: 'dev-services.fidemapps.com',
         key: 'DEMO-ACCESSKEY',
         secret: 'DEMO-SECRETKEY'
       });
