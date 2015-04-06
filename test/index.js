@@ -10,7 +10,7 @@ var testAccount = {
 
 var methods = [];
 
-if (process.env.NODE_ENV === 'browser') {
+if (typeof window !== 'undefined') {
   methods = [
     require('./methods/assignMemberToSession'),
     require('./methods/logAction'),
@@ -76,7 +76,7 @@ describe('Client', function () {
 
     describe('#request', function () {
 
-      if (process.env.NODE_ENV !== 'browser') {
+      if (typeof window === 'undefined') {
         require('./request/signed-request')(reg);
         require('./request/additional-headers')(reg);
         require('./request/additional-qs')(reg);
