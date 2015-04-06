@@ -231,7 +231,6 @@ describe('Client', function () {
             body: {}
           }, function (err) {
             expect(err).to.be.instanceOf(Error);
-            expect(err.body).to.have.property('status', 'error');
             done();
           });
         });
