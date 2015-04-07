@@ -14,6 +14,7 @@ if (typeof window !== 'undefined') {
   methods = [
     require('./methods/assignMemberToSession'),
     require('./methods/logAction'),
+    require('./methods/createMember'),
     require('./methods/startSession')
   ];
 } else {

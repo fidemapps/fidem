@@ -13,7 +13,7 @@ module.exports = function (reg) {
     });
 
     beforeEach(function (done) {
-      reg.client.createMember({account_id: 'demo'}, function (err, res) {
+      reg.client.createMember({}, function (err, res) {
         if (err) return done(err);
         memberId = res.data.id;
         done();
