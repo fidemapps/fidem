@@ -38,8 +38,8 @@ client.authenticate({
   password: 'mySecretPassword'
 })
 // Retrieve a user by token.
-.then(function (token) {
-  return client.getUserByToken(token);
+.then(function (result) {
+  return client.getUserByToken(result.token);
 })
 .then(function (user) {
   // ...
@@ -91,18 +91,14 @@ client.authenticate(credentials).then(function (res) {
 Make a custom request to the API.
 
 ```
-* @param {object} options
-   will use a session token request.
+* @param {object} options Will use a session token request.
 * @param {string} options.path Path of the request.
 * @param {string} [options.token=null] Session token. If provided,
-* @param {boolean} [options.sign=true] Sign the request
-   using key and secret of the client.
+* @param {boolean} [options.sign=true] Sign the request using key and secret of the client.
 * @param {string} [options.method=GET] HTTP method.
-* @param {object} [options.body=null] HTTP body of the request for methods
-   that supports it (POST, PUT, ...).
+* @param {object} [options.body=null] HTTP body of the request for methods that supports it (POST, PUT, ...).
 * @param {object} [options.headers={}] Additional headers.
-* @param {object} [options.requestOptions={}] Custom options of the internal
-   [request](https://github.com/mikeal/request#requestoptions-callback).
+* @param {object} [options.requestOptions={}] Custom options of the internal [request](https://github.com/mikeal/request#requestoptions-callback).
 * @param {Function} [cb] Optional callback.
 * @returns {Promise}
 ```
@@ -135,6 +131,20 @@ Retrieve a user by token.
 client.getUserByToken('Qpaldj9kd');
 ```
 
+### client.getUserByBearerToken(token, [cb])
+
+Retrieve a user by bearer access token.
+
+```
+* @param {string} bearerToken Bearer Token of the user.
+* @param {Function} [cb] Optional callback.
+* @returns {Promise}
+```
+
+```js
+client.getUserByBearerToken('eyJraWQiOiIzSldXV0k3OTJHQkZDSVlRVERLTEcyUTdFIiwiYWxnIjoiSFMyNTYifQ.eyJqdGkiOiIzM0Q4UWtBR3dJTWoxb1R5OTB0cTFtIiwiaWF0IjoxNDUyOTkxODY2LCJpc3MiOiJodHRwczovL2FwaS5zdG9ybXBhdGguY29tL3YxL2FwcGxpY2F0aW9ucy8xOGppdHVodlpRQ29UNzNkdXo0bnEwIiwic3ViIjoiaHR0cHM6Ly9hcGkuc3Rvcm1wYXRoLmNvbS92MS9hY2NvdW50cy80MXdacmk0b01ZcWRvU0dKbUxEVDlOIiwiZXhwIjoxNDUyOTk1NDY2LCJydGkiOiIzM0Q0NmdzNWFOdFczSTNwbTM2MEpDIn0.-p6ceniNoUZueLrIssgXA3D1a8ydZuUB-Jq1BjsluQM');
+```
+
 ### client.logAction(action, [cb])
 
 Log an action.
@@ -160,42 +170,13 @@ client.logAction({
 Create a member.
 
 ```
-* @param {string} accountId If of the account.
+* @param {Member} The member profile to create
 * @param {Function} [cb] Optional callback.
 * @returns {Promise}
 ```
 
 ```js
-client.createMember('demo');
-```
-
-### client.startSession(memberId, [cb])
-
-Start a new session.
-
-```
-* @param {string} memberId If of the member.
-* @param {Function} [cb] Optional callback.
-* @returns {Promise}
-```
-
-```js
-client.startSession('02Ldkzqkdu');
-```
-
-### client.assignMemberToSession(memberId, sessionId, [cb])
-
-Assign a member to an existing session.
-
-```
-* @param {string} sessionId If of the session.
-* @param {string} memberId If of the member.
-* @param {Function} [cb] Optional callback.
-* @returns {Promise}
-```
-
-```js
-client.assignMemberToSession('-dkqu9j3ld', '_lqsdzoks');
+client.createMember({profile: {firstname: 'demo'}});
 ```
 
 ## License
